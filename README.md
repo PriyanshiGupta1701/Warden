@@ -40,7 +40,7 @@ When something's found: Slack alert → Holmes investigates the repo for a root 
 ## Project structure
 
 ```
-MCP-HUB/
+Warden/
 ├── docker-compose.yaml
 ├── config.yaml                  # Holmes model + toolset config
 ├── holmes-custom/                # Holmes image: Azure CLI, kubectl-safe az wrapper
@@ -134,10 +134,10 @@ curl https://<your-app>.azurewebsites.net/divide/5
 
 **Testing Kubernetes:** build and deploy the same app to your local cluster:
 ```bash
-docker build -t mcp-hub-test:local .
-kubectl create deployment mcp-hub-test --image=mcp-hub-test:local -n default
-kubectl expose deployment mcp-hub-test --port=80 --target-port=8000 -n default
-kubectl port-forward svc/mcp-hub-test 8080:80 -n default
+docker build -t warden-test:local .
+kubectl create deployment warden-test --image=warden-test:local -n default
+kubectl expose deployment warden-test --port=80 --target-port=8000 -n default
+kubectl port-forward svc/warden-test 8080:80 -n default
 curl http://localhost:8080/items/99
 ```
 To actually exercise the *pod-health* side of the check (not just app-level errors), try something that kills the container, e.g. temporarily setting the image to a bad tag (`ImagePullBackOff`) or lowering `resources.limits.memory` until it `OOMKilled`s.

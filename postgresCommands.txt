@@ -1,13 +1,13 @@
 1. Create a new postgre server
     
-    a. With the name "mcp-hub-docker"
+    a. With the name "warden-docker"
     b. In connections tab:
         Host name: localhost
         Port: 5432
         Username: admin_username
         Password: admin_password
 
-2. Create a DB in the new server named "mcp-hub"
+2. Create a DB in the new server named "warden"
 
 3. Run the following SQL commands to create sample tables in the DB:
 
@@ -39,8 +39,8 @@
 
 4. Now create a new role and user in the DB with read only access to the DB with the following commands:
 
-    CREATE USER holmes_readonly WITH PASSWORD 'mcp_hub_test';
-    GRANT CONNECT ON DATABASE mcp_hub TO holmes_readonly;
+    CREATE USER holmes_readonly WITH PASSWORD 'warden_test';
+    GRANT CONNECT ON DATABASE warden TO holmes_readonly;
     GRANT USAGE ON SCHEMA public TO holmes_readonly;
     GRANT SELECT ON ALL TABLES IN SCHEMA public TO holmes_readonly;
     ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO holmes_readonly;
@@ -52,11 +52,11 @@
 
 6. Now move to your "C:\Program Files\PostgreSQL\18" directory and look for "pg_hba.conf" file and at its end in the subnet field add the below line to allow the docker to access this local port:
 
-    host    mcp_hub    holmes_readonly    <subnet of backend container>    scram-sha-256
+    host    warden    holmes_readonly    <subnet of backend container>    scram-sha-256
 
 7. Paste this postgres url in the .env file:
 
-    POSTGRES_URL=postgresql://holmes_readonly:mcp_hub_test@host.docker.internal:5432/mcp_hub
+    POSTGRES_URL=postgresql://holmes_readonly:warden_test@host.docker.internal:5432/warden
 
 8. Rebuild the image
 

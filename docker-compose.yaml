@@ -4,13 +4,13 @@ services:
     environment:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=${POSTGRES_ADMIN_PASSWORD:?set in .env}
-      - POSTGRES_DB=mcp_hub
+      - POSTGRES_DB=warden
     ports:
       - "127.0.0.1:15432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U admin -d mcp_hub"]
+      test: ["CMD-SHELL", "pg_isready -U admin -d warden"]
       interval: 5s
       timeout: 3s
       retries: 10
@@ -121,7 +121,7 @@ services:
       - FIX_MODEL=${FIX_MODEL:-gemini/gemini-2.5-flash}
       - GITHUB_REPO=${GITHUB_REPO:-}
       - KUBECONFIG=/root/.kube/config
-      - K8S_NAMESPACE=${K8S_NAMESPACE:-mcp-hub-test}
+      - K8S_NAMESPACE=${K8S_NAMESPACE:-warden-test}
       - K8S_DEPLOYMENT=${K8S_DEPLOYMENT:-}
       - K8S_RESTART_THRESHOLD=${K8S_RESTART_THRESHOLD:-3}
       - K8S_LOG_WINDOW_MINUTES=${K8S_LOG_WINDOW_MINUTES:-20}
@@ -129,7 +129,7 @@ services:
       - SONARQUBE_URL=${SONARQUBE_URL:-https://sonarcloud.io}
       - SONARQUBE_ORG=${SONARQUBE_ORG:-}
       - SONARQUBE_TOKEN=${SONARQUBE_TOKEN:-}
-      - SONARQUBE_PROJECT_KEY=${SONARQUBE_PROJECT_KEY:-mcp-hub-test}
+      - SONARQUBE_PROJECT_KEY=${SONARQUBE_PROJECT_KEY:-warden-test}
       - SONARQUBE_SEVERITIES=${SONARQUBE_SEVERITIES:-BLOCKER,CRITICAL}
       - GIT_CLONE_DIR=/data/repo-clone
     volumes:

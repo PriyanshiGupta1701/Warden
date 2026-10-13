@@ -109,7 +109,7 @@ toolsets:
       connection_url: "{{ env.POSTGRES_URL }}"
       read_only: true
     llm_instructions: |
-      Local PostgreSQL database (mcphub_test) with sample customers/orders tables,
+      Local PostgreSQL database (warden_test) with sample customers/orders tables,
       used for testing Holmes's database investigation capabilities.
   kubernetes/core:
     enabled: true        # describe pods, nodes, deployments, events
