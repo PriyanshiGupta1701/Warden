@@ -122,7 +122,7 @@ npm install && npm run dev   # serves on :5173
 
 A minimal, intentionally-buggy FastAPI app is here for exercising both the Azure and Kubernetes paths end-to-end:
 
-**[github.com/PriyanshiGupta1701/mcp-hub-test](https://github.com/PriyanshiGupta1701/mcp-hub-test)**
+**[github.com/PriyanshiGupta1701/mcp-hub-test](https://github.com/PriyanshiGupta1701/warden-test)**
 
 It exposes `/items/{id}` (unhandled `KeyError` on unknown ids) and `/divide/{n}` (`ZeroDivisionError` at `n=5`) — real unhandled exceptions, not synthetic errors, so both the log-scraping and the fix/PR steps have something genuine to work with.
 
