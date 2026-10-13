@@ -1,4 +1,4 @@
-# MCP-HUB
+# Warden: AI DevOps Monitoring Agent
 
 An AI-powered DevOps automation platform. [HolmesGPT](https://github.com/HolmesGPT/holmesgpt) orchestrates a set of MCP servers (GitHub, Jira, Slack, Azure, Kubernetes) to investigate infrastructure, answer questions in Slack, and — proactively, without being asked — detect problems, find the root cause in your code, and open a pull request to fix it.
 
