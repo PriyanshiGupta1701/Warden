@@ -54,16 +54,11 @@ When Warden detects a problem, it initiates the remediation workflow:
 
 The monitoring logic, detection thresholds, event routing, deduplication, remediation workflow, and control plane are Warden components. HolmesGPT is used as the underlying AI investigation and tool-use component within this larger system.
 
-### 4. Control plane and frontend
+### 4. Control plane API
 
-Warden includes a React frontend and Flask control-plane API for managing integrations without manually editing environment files.
+Warden includes a Flask control-plane API for managing integration settings without manually editing environment files.
 
-The interface supports:
-- Managing connector credentials for GitHub, Jira, Slack, Grafana, and Azure.
-- Asking questions through the configured investigation workflow.
-- Viewing the Warden dashboard and operational status.
-
-The Flask API updates the relevant `.env` settings and restarts only the affected Docker Compose services when connector configuration changes.
+The API manages connector credentials for GitHub, Jira, Slack, Grafana, and Azure. It updates the relevant `.env` settings and restarts only the affected Docker Compose services when connector configuration changes.
 
 ## Project structure
 
@@ -77,10 +72,8 @@ Warden/
 ├── watcher/                        # Custom scheduled monitoring and detection
 ├── watcher-data/                   # Persisted deduplication state
 │   └── watcher_state.json
-└── backend/                        # Warden control plane and React frontend
+└── backend/                        # Warden control-plane API
     ├── app.py                      # Flask API, environment updates, restarts
-    ├── App.jsx                     # Connectors, Ask Holmes, dashboard
-    ├── main.jsx
     └── docker-compose.yaml
 ```
 
@@ -94,7 +87,6 @@ Warden/
 | MCP servers and integrations | Provide access to GitHub, Jira, Slack, Azure, Grafana, and Kubernetes |
 | Warden remediation workflow | Coordinates investigation outcomes, pull-request creation, and Slack updates |
 | Flask control plane | Manages connector configuration and service restarts |
-| React frontend | Provides the configuration interface, question entry point, and dashboard |
 
 ## Prerequisites
 
@@ -166,7 +158,7 @@ docker compose ps
 
 Check that the required services are running and that the HolmesGPT container reports healthy status where a health check is configured.
 
-### 4. Start the control plane and frontend (optional)
+### 4. Start the control plane API (optional)
 
 Start the Flask API:
 
@@ -180,14 +172,6 @@ python app.py
 
 The API serves on port `4000`.
 
-In a separate terminal, start the React development server:
-
-```bash
-npm install
-npm run dev
-```
-
-The frontend serves on port `5173`.
 
 ## Testing the workflow
 
@@ -281,12 +265,11 @@ Warden is built by combining an open-source AI investigation foundation with cus
 
 - **HolmesGPT:** AI-powered investigation and tool-use foundation.
 - **Python and Flask:** Control-plane API and backend services.
-- **React:** Configuration interface and dashboard.
 - **Docker Compose:** Service orchestration.
 - **MCP servers and APIs:** Connectivity to development, collaboration, cloud, and infrastructure systems.
 - **Azure and Kubernetes:** Infrastructure monitoring targets.
 - **GitHub:** Repository investigation, Dependabot scanning, and pull-request creation.
 - **Slack:** Interactive questions, alerts, and investigation updates.
 
-**In short:** HolmesGPT provides the AI investigation capabilities; Warden builds the monitoring, orchestration, alerting, control plane, and human-reviewed remediation workflow around them.
+**In short:** Warden builds the monitoring, orchestration, alerting, control plane, and human-reviewed remediation workflow around them.
 
