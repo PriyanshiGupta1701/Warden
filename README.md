@@ -122,7 +122,7 @@ npm install && npm run dev   # serves on :5173
 
 A minimal, intentionally-buggy FastAPI app is here for exercising both the Azure and Kubernetes paths end-to-end:
 
-**[github.com/PriyanshiGupta1701/mcp-hub-test](https://github.com/PriyanshiGupta1701/warden-test)**
+**[github.com/PriyanshiGupta1701/warden-test](https://github.com/PriyanshiGupta1701/warden-test)**
 
 It exposes `/items/{id}` (unhandled `KeyError` on unknown ids) and `/divide/{n}` (`ZeroDivisionError` at `n=5`) — real unhandled exceptions, not synthetic errors, so both the log-scraping and the fix/PR steps have something genuine to work with.
 
@@ -159,23 +159,16 @@ Either way, wait for the next `watcher` poll cycle (or `docker compose restart w
 
 ## Current status / known limitations
 
-| Category | Item | Status |
-|---|---|---|
-| **Monitoring pipelines** | Azure App Service monitoring + auto-fix PR | ✅ Working |
-| | Kubernetes monitoring + auto-fix PR | ✅ Working |
-| | SonarQube commit-triggered scan + auto-fix PR | ✅ Working |
-| | AWS monitoring + auto-fix PR | Not configured yet |
-| **MCP toolsets** | `github` (SSE) | ✅ Working |
-| | `slack` (SSE) | ✅ Working |
-| | `jira` (SSE) | ✅ Working |
-| | `azure_api` (stdio) | ✅ Working |
-| | `sonarqube` (streamable-http) | ✅ Working |
-| | `grafana` (SSE) | ✅ Working |
-| | `k8s-remediation` (SSE) | ✅ Working |
-| | `kubernetes/core`, `kubernetes/logs` | ✅ Working |
-| | `kubernetes/kube-lineage-extras` | ✅ Working |
-| | `docker/core` | ✅ Working |
-| | `postgres` service | ✅ Working |
+| Item | Status |
+|---|---|
+| Azure monitoring + auto-fix PR | ✅ Working |
+| Kubernetes monitoring + auto-fix PR | ✅ Working |
+| Security (Dependabot) monitoring | ✅ Working |
+| Slack chat (`@mention`) | ✅ Working |
+| Frontend + control-plane credential management | ✅ Working |
+| Grafana MCP | ⚠️ 403 auth — needs a fresh service account token |
+| k8s-remediation MCP | ⚠️ 404 — SSE path mismatch, unused (superseded by `watcher`'s own kubectl checks) |
+| Fix/PR step on `gemini-3.1-flash-lite` | ⚠️ Occasionally returns an empty response on complex prompts — mitigated by splitting investigate/execute into two smaller calls, not fully eliminated |
 
 ## How it stays cheap
 
